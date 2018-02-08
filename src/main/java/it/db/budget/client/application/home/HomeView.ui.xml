@@ -2,8 +2,6 @@
         xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
     <g:HTMLPanel>
-        
-        <p>Hello world!</p>
-        
+        <p>Family Budget Web edition!</p>
     </g:HTMLPanel>
 </ui:UiBinder>

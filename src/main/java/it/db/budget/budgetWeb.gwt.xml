@@ -4,6 +4,9 @@
 <module rename-to='budgetWeb'>
     <inherits name='com.google.gwt.user.User'/>
     <inherits name="com.gwtplatform.mvp.MvpWithEntryPoint"/>
+    
+    <inherits name="org.gwtbootstrap3.GwtBootstrap3"/>
+    <inherits name="org.gwtbootstrap3.GwtBootstrap3Theme"/>
 
     <extend-configuration-property name="gin.ginjector.modules"
                                    value="it.db.budget.client.gin.ClientModule"/>
@@ -12,5 +15,10 @@
     <source path='client'/>
     <source path='shared'/>
 
+	<public path='resources'>
+        <include name='css/*.css'/>
+        <include name='js/*.js'/>
+    </public>
+    <stylesheet src='css/bootstrap.css'/>
     <set-configuration-property name="CssResource.enableGss" value="true"/>
 </module>
