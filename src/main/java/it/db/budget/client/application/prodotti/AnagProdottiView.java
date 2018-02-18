@@ -1,5 +1,7 @@
 package it.db.budget.client.application.prodotti;
 
+import java.util.ArrayList;
+
 import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.TextBox;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
@@ -10,12 +12,15 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import it.db.budget.client.application.entity.ProdottiEntity;
+import it.db.budget.server.client.service.BudgetService;
+import it.db.budget.server.client.service.BudgetServiceAsync;
 
 public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> implements AnagProdottiPresenter.MyView {
 
@@ -54,7 +59,7 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
 
             @Override
             public String getValue(final ProdottiEntity object) {
-                return String.valueOf(object.getIdProdottoSpesa().toString());
+                return String.valueOf(object.getProdottoSpesa());
             }
         };
         cellTable.addColumn(col2, "Prodotto");
@@ -66,10 +71,28 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
         ProdottiEntity prod = new ProdottiEntity();
         prod.setIdProdottoSpesa(new Long(1));
         prod.setProdottoSpesa("Pane");
-        
-        
-        
         cellTableProvider.getList().add(prod);
+        
+        ProdottiEntity prod2 = new ProdottiEntity();
+        prod2.setIdProdottoSpesa(new Long(2));
+        prod2.setProdottoSpesa("Prosciutto");
+        cellTableProvider.getList().add(prod2);
+        
+        //FIXME: mettere la giusta entity di shared!
+//        BudgetServiceAsync service = GWT.create(BudgetService.class);
+//        service.getListaProdottiSpesa(new AsyncCallback<ArrayList<ProdottiEntity>>() {
+//			
+//			@Override
+//			public void onSuccess(ArrayList<ProdottiEntity> result) {
+//				cellTableProvider.getList().addAll(result);
+//			}
+//			
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				GWT.log("Errore durante il caricamento dei prodotti spesa.", caught);
+//			}
+//		});
+        
         
 		
 		GWT.log("AnagProdottiView load ");

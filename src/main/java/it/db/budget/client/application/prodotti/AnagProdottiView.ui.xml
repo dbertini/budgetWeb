@@ -16,7 +16,7 @@
     				</b:FormGroup>
     				<b:Button type="PRIMARY" ui:field="cercaButton">Cerca</b:Button>
     				<b:Button type="PRIMARY" ui:field="salvaButton">Salva</b:Button>
-    				<b.gwt:CellTable bordered="true" condensed="true" striped="true" hover="true" height="300px" width="100%" ui:field="cellTable"/>
+    				<b.gwt:CellTable bordered="true" condensed="true" striped="true" hover="true" height="20px" width="100%" ui:field="cellTable"/>
 				</b:FieldSet>
 			</b:Form>
 			

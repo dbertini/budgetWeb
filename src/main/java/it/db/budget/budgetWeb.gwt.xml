@@ -15,10 +15,6 @@
     <source path='client'/>
     <source path='shared'/>
 
-	<public path='resources'>
-        <include name='css/*.css'/>
-        <include name='js/*.js'/>
-    </public>
-    <stylesheet src='css/bootstrap.css'/>
-    <set-configuration-property name="CssResource.enableGss" value="true"/>
+	
+    <set-configuration-property name="CssResource.enableGss" value="false"/>
 </module>

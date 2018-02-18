@@ -10,9 +10,9 @@ public interface AppResources extends ClientBundle {
     interface Style extends CssResource {
     }
 
-    @Source("css/normalize.gss")
+    @Source("resource/css/demo.css")
     Normalize normalize();
 
-    @Source("css/style.gss")
+    @Source("resource/css/prettify.css")
     Style style();
 }

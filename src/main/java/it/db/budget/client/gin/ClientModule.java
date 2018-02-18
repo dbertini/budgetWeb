@@ -20,6 +20,6 @@ public class ClientModule extends AbstractPresenterModule {
                 .build());
         install(new ApplicationModule());
 
-        bind(ResourceLoader.class).asEagerSingleton();
+        //bind(ResourceLoader.class).asEagerSingleton();
     }
 }
