@@ -8,14 +8,18 @@
 			<b:Heading size="H3" text="Anagrafica Prodotti" />
 		</b:PanelHeader>
 		<b:PanelBody>
-			<b:Container fluid="true">
-				<b:Description horizontal="true">
-					<b:DescriptionTitle text="Nome:" />
-					<b:DescriptionData text="" />
-				</b:Description>
-				<b:Button type="LINK" text="Indietro" ui:field="indietroButton"/>
-			</b:Container>
+			<b:Form>
+				<b:FieldSet>
+					<b:FormGroup>
+      					<b:FormLabel for="formProdotto">Prodotto</b:FormLabel>
+      					<b:TextBox placeholder="Prodotto..." b:id="formProdotto" ui:field="prodottoTB"/>
+    				</b:FormGroup>
+    				<b:Button type="PRIMARY" ui:field="cercaButton">Cerca</b:Button>
+    				<b:Button type="PRIMARY" ui:field="salvaButton">Salva</b:Button>
+    				<b.gwt:CellTable bordered="true" condensed="true" striped="true" hover="true" height="300px" width="100%" ui:field="cellTable"/>
+				</b:FieldSet>
+			</b:Form>
+			
 		</b:PanelBody>
 	</b:Panel>
-
 </ui:UiBinder>
