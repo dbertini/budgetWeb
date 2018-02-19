@@ -3,8 +3,8 @@ package it.db.budget.server.retrofit;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.db.budget.client.application.entity.ProdottiEntity;
 import it.db.budget.server.retrofit.interfaces.BudgetRetrofitInterface;
+import it.db.budget.shared.bean.ProdottiEntity;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;

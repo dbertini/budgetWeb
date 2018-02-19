@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import it.db.budget.client.application.entity.ProdottiEntity;
-import it.db.budget.server.client.service.BudgetService;
+import it.db.budget.client.service.BudgetService;
 import it.db.budget.server.retrofit.BudgetRetrofitService;
+import it.db.budget.shared.bean.ProdottiEntity;
 
 public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetService {
 

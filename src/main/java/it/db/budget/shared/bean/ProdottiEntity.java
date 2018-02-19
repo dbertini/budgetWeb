@@ -1,4 +1,4 @@
-package it.db.budget.client.application.entity;
+package it.db.budget.shared.bean;
 
 import java.io.Serializable;
 

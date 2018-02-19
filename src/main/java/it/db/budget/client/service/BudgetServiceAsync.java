@@ -1,10 +1,10 @@
-package it.db.budget.server.client.service;
+package it.db.budget.client.service;
 
 import java.util.ArrayList;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import it.db.budget.client.application.entity.ProdottiEntity;
+import it.db.budget.shared.bean.ProdottiEntity;
 
 public interface BudgetServiceAsync {
 	void getListaProdottiSpesa(AsyncCallback<ArrayList<ProdottiEntity>> callback);

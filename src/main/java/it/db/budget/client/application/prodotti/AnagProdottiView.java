@@ -18,9 +18,9 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
-import it.db.budget.client.application.entity.ProdottiEntity;
-import it.db.budget.server.client.service.BudgetService;
-import it.db.budget.server.client.service.BudgetServiceAsync;
+import it.db.budget.client.service.BudgetService;
+import it.db.budget.client.service.BudgetServiceAsync;
+import it.db.budget.shared.bean.ProdottiEntity;
 
 public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> implements AnagProdottiPresenter.MyView {
 
@@ -43,9 +43,7 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
 	@Inject
 	AnagProdottiView(Binder uiBinder) {
 		initWidget(uiBinder.createAndBindUi(this));
-		
-		
-		
+
 		final TextColumn<ProdottiEntity> col1 = new TextColumn<ProdottiEntity>() {
 
             @Override
@@ -78,21 +76,8 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
         prod2.setProdottoSpesa("Prosciutto");
         cellTableProvider.getList().add(prod2);
         
-        //FIXME: mettere la giusta entity di shared!
-//        BudgetServiceAsync service = GWT.create(BudgetService.class);
-//        service.getListaProdottiSpesa(new AsyncCallback<ArrayList<ProdottiEntity>>() {
-//			
-//			@Override
-//			public void onSuccess(ArrayList<ProdottiEntity> result) {
-//				cellTableProvider.getList().addAll(result);
-//			}
-//			
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				GWT.log("Errore durante il caricamento dei prodotti spesa.", caught);
-//			}
-//		});
         
+        buildData() ;
         
 		
 		GWT.log("AnagProdottiView load ");
@@ -109,5 +94,24 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
 	public void onCercaButtonClick(final ClickEvent event) {
 		//getUiHandlers().sendToListaDataSource();
 		GWT.log("Cliccato bottone cerca!");
+	}
+	
+	private void buildData() {
+		//FIXME: mettere la giusta entity di shared!
+		BudgetServiceAsync service = GWT.create(BudgetService.class);
+		
+
+        service.getListaProdottiSpesa(new AsyncCallback<ArrayList<ProdottiEntity>>() {
+			
+			@Override
+			public void onSuccess(ArrayList<ProdottiEntity> result) {
+				cellTableProvider.getList().addAll(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				GWT.log("Errore durante il caricamento dei prodotti spesa.", caught);
+			}
+		});
 	}
 }
