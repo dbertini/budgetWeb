@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.db.budget.server.retrofit.interfaces.BudgetRetrofitInterface;
+import it.db.budget.server.utils.ApplicationConstants;
 import it.db.budget.shared.bean.ProdottiEntity;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -19,7 +20,7 @@ public class BudgetRetrofitService {
 	}
 	
 	private void init() {
-		String baseUrl = "";
+		String baseUrl = ApplicationConstants.BUDGET_URL;
 		Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())

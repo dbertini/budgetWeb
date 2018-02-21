@@ -64,19 +64,6 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
         
         cellTableProvider.addDataDisplay(cellTable);
         
-        
-        
-        ProdottiEntity prod = new ProdottiEntity();
-        prod.setIdProdottoSpesa(new Long(1));
-        prod.setProdottoSpesa("Pane");
-        cellTableProvider.getList().add(prod);
-        
-        ProdottiEntity prod2 = new ProdottiEntity();
-        prod2.setIdProdottoSpesa(new Long(2));
-        prod2.setProdottoSpesa("Prosciutto");
-        cellTableProvider.getList().add(prod2);
-        
-        
         buildData() ;
         
 		
@@ -99,6 +86,21 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
 	private void buildData() {
 		//FIXME: mettere la giusta entity di shared!
 		BudgetServiceAsync service = GWT.create(BudgetService.class);
+		
+		GWT.log("Dentro buildData di AnagProdottiView!");
+		
+		service.getMessaggio(new AsyncCallback<String>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				GWT.log("Errore durante il caricamento dei prodotti spesa.", caught);
+			}
+
+			@Override
+			public void onSuccess(String result) {
+				GWT.log(result);
+			}
+		});
 		
 
         service.getListaProdottiSpesa(new AsyncCallback<ArrayList<ProdottiEntity>>() {

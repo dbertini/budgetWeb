@@ -15,6 +15,5 @@
     <source path='client'/>
     <source path='shared'/>
 
-	
     <set-configuration-property name="CssResource.enableGss" value="false"/>
 </module>

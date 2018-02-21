@@ -11,5 +11,7 @@ import it.db.budget.shared.bean.ProdottiEntity;
 public interface BudgetService extends RemoteService {
 
 	ArrayList<ProdottiEntity> getListaProdottiSpesa();
+	
+	public String getMessaggio();
 
 }

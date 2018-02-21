@@ -25,4 +25,10 @@ public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetSer
 		}
 		return new ArrayList<>();
 	}
+
+	@Override
+	public String getMessaggio() {
+		// TODO Auto-generated method stub
+		return "Messaggio recuperato da server!!!!!!!!!!";
+	}
 }
