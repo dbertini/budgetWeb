@@ -5,14 +5,14 @@
 
 	<b:Panel>
 		<b:PanelHeader>
-			<b:Heading size="H3" text="Anagrafica Prodotti" />
+			<b:Heading size="H3" text="Anagrafica Supermercati" />
 		</b:PanelHeader>
 		<b:PanelBody>
 			<b:Form>
 				<b:FieldSet>
 					<b:FormGroup>
-      					<b:FormLabel for="formProdotto">Prodotto</b:FormLabel>
-      					<b:TextBox placeholder="Prodotto..." b:id="formProdotto" ui:field="prodottoTB"/>
+      					<b:FormLabel for="formSupermercato">Supermercato</b:FormLabel>
+      					<b:TextBox placeholder="Supermercato..." b:id="formSupermercato" ui:field="supermercatoTB"/>
     				</b:FormGroup>
 <!--     				<b:Button type="PRIMARY" ui:field="cercaButton">Cerca</b:Button> -->
     				<b:Button type="PRIMARY" ui:field="salvaButton">Salva</b:Button>

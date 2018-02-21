@@ -1,9 +1,12 @@
-package it.db.budget.client.application.prodotti;
+package it.db.budget.client.application.supermercati;
 
 import java.util.ArrayList;
 
 import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.Icon;
 import org.gwtbootstrap3.client.ui.TextBox;
+import org.gwtbootstrap3.client.ui.constants.IconSize;
+import org.gwtbootstrap3.client.ui.constants.IconType;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import com.google.gwt.core.client.GWT;
@@ -21,52 +24,50 @@ import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import it.db.budget.client.service.BudgetService;
 import it.db.budget.client.service.BudgetServiceAsync;
 import it.db.budget.shared.bean.ProdottiEntity;
+import it.db.budget.shared.bean.SupermercatiEntity;
 
-public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> implements AnagProdottiPresenter.MyView {
+public class AnagSupermercatiView extends ViewWithUiHandlers<AnagSupermercatiPresenter> implements AnagSupermercatiPresenter.MyView {
 
-	
-//	@UiField
-//	Button cercaButton;
+
 	@UiField
 	Button salvaButton;
 	@UiField
-	TextBox prodottoTB;
+	TextBox supermercatoTB;
 	
 	@UiField(provided = true)
-    CellTable<ProdottiEntity> cellTable = new CellTable<ProdottiEntity>(10000);
-	
-	interface Binder extends UiBinder<Widget, AnagProdottiView> {
+    CellTable<SupermercatiEntity> cellTable = new CellTable<SupermercatiEntity>(10000);
+
+	interface Binder extends UiBinder<Widget, AnagSupermercatiView> {
 	}
 	
-	private ListDataProvider<ProdottiEntity> cellTableProvider = new ListDataProvider<ProdottiEntity>();
+	private ListDataProvider<SupermercatiEntity> cellTableProvider = new ListDataProvider<SupermercatiEntity>();
 	
 	@Inject
-	AnagProdottiView(Binder uiBinder) {
+	AnagSupermercatiView(Binder uiBinder) {
 		initWidget(uiBinder.createAndBindUi(this));
 
-		final TextColumn<ProdottiEntity> col1 = new TextColumn<ProdottiEntity>() {
+		final TextColumn<SupermercatiEntity> col1 = new TextColumn<SupermercatiEntity>() {
 
             @Override
-            public String getValue(final ProdottiEntity object) {
-                return String.valueOf(object.getIdProdottoSpesa().toString());
+            public String getValue(final SupermercatiEntity object) {
+                return String.valueOf(object.getIdSupermercato().toString());
             }
         };
-        cellTable.addColumn(col1, "ID");
+        cellTable.addColumn(col1, "Prodotto");
 		
-        final TextColumn<ProdottiEntity> col2 = new TextColumn<ProdottiEntity>() {
+        final TextColumn<SupermercatiEntity> col2 = new TextColumn<SupermercatiEntity>() {
 
             @Override
-            public String getValue(final ProdottiEntity object) {
-                return String.valueOf(object.getProdottoSpesa());
+            public String getValue(final SupermercatiEntity object) {
+                return String.valueOf(object.getNome());
             }
         };
         cellTable.addColumn(col2, "Prodotto");
-        
+        cellTable.setStriped(true);
         cellTableProvider.addDataDisplay(cellTable);
-        
+
         buildData() ;
         
-		
 		GWT.log("AnagProdottiView load ");
 	}
 
@@ -74,9 +75,9 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
 	@UiHandler("salvaButton")
 	public void onSalvaButtonClick(final ClickEvent event) {
 		GWT.log("Cliccato bottone Salva!");
-		
+
 		BudgetServiceAsync service = GWT.create(BudgetService.class);
-		service.insertProdottoSpesa(prodottoTB.getText(), new AsyncCallback<Void>() {
+		service.insertSupermercati(supermercatoTB.getText(), new AsyncCallback<Void>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -91,17 +92,7 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
 		});
 		
 	}
-	
-//	@UiHandler("cercaButton")
-//	public void onCercaButtonClick(final ClickEvent event) {
-//		//getUiHandlers().sendToListaDataSource();
-//		
-//		
-//		
-//		
-//		GWT.log("Cliccato bottone cerca!");
-//	}
-	
+
 	private void cleanData() {
 		cellTableProvider.flush();
 		cellTableProvider.getList().clear();
@@ -109,15 +100,13 @@ public class AnagProdottiView extends ViewWithUiHandlers<AnagProdottiPresenter> 
 	}
 	
 	private void buildData() {
-		//FIXME: mettere la giusta entity di shared!
 		BudgetServiceAsync service = GWT.create(BudgetService.class);
 		
 		GWT.log("Dentro buildData di AnagProdottiView!");
-
-        service.getListaProdottiSpesa(new AsyncCallback<ArrayList<ProdottiEntity>>() {
+        service.getListaSupermercati(new AsyncCallback<ArrayList<SupermercatiEntity>>() {
 			
 			@Override
-			public void onSuccess(ArrayList<ProdottiEntity> result) {
+			public void onSuccess(ArrayList<SupermercatiEntity> result) {
 				cellTableProvider.getList().addAll(result);
 			}
 			

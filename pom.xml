@@ -5,7 +5,7 @@
 
     <groupId>it.db.budget</groupId>
     <artifactId>budgetWeb</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <packaging>war</packaging>
     <name>GWTP Basic</name>
@@ -108,7 +108,6 @@
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwt.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- GWTP -->
@@ -116,7 +115,6 @@
 			<groupId>com.gwtplatform</groupId>
 			<artifactId>gwtp-mvp-client</artifactId>
 			<version>${gwtp.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- DI -->
@@ -124,7 +122,6 @@
 			<groupId>com.google.gwt.inject</groupId>
 			<artifactId>gin</artifactId>
 			<version>${gin.version}</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

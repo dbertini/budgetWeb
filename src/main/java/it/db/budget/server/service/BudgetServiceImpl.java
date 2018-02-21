@@ -1,0 +1,60 @@
+package it.db.budget.server.service;
+
+import java.util.ArrayList;
+
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
+import it.db.budget.client.service.BudgetService;
+import it.db.budget.server.retrofit.BudgetRetrofitService;
+import it.db.budget.shared.bean.ProdottiEntity;
+import it.db.budget.shared.bean.SupermercatiEntity;
+
+public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetService {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2568327084740898654L;
+	
+	@Override
+	public String getMessaggio() {
+		// TODO Auto-generated method stub
+		return "Messaggio recuperato da server!!!!!!!!!!";
+	}
+
+	@Override
+	public ArrayList<ProdottiEntity> getListaProdottiSpesa() {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		try {
+			return budegetservice.getListaProdottiSpesa();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>();
+	}
+
+	
+	
+	@Override
+	public void insertProdottoSpesa(String aProdotto) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		budegetservice.insertProdottoSpesa(aProdotto);
+	}
+
+	@Override
+	public ArrayList<SupermercatiEntity> getListaSupermercati() {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		try {
+			return budegetservice.getListaSupermercati();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>();
+	}
+	@Override
+	public void insertSupermercati(String aSupermercato) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		budegetservice.insertSupermercati(aSupermercato);
+	}
+
+}
