@@ -1,5 +1,6 @@
 package it.db.budget.client.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -18,5 +19,7 @@ public interface BudgetService extends RemoteService {
 
 	ArrayList<SupermercatiEntity> getListaSupermercati();
 	void insertSupermercati(String aSupermercato) throws Exception;
+	
+	BigDecimal salvaNuovoScontrino(String aDataScontrino, BigDecimal aIdSupermercato) throws Exception;
 
 }

@@ -27,6 +27,12 @@
                         <b:NavbarNav>
 <!--                             <b:AnchorListItem text="Setup" targetHistoryToken="{nameTokens.getSetup}"/> -->
                             <b:ListDropDown>
+                                <b:AnchorButton dataToggle="DROPDOWN">Spese</b:AnchorButton>
+                                <b:DropDownMenu>
+                                    <b:AnchorListItem targetHistoryToken="{nameTokens.getNuovoScontrino}">Nuovo Scontrino</b:AnchorListItem>
+                                </b:DropDownMenu>
+                            </b:ListDropDown>
+                            <b:ListDropDown>
                                 <b:AnchorButton dataToggle="DROPDOWN">Anagrafiche</b:AnchorButton>
                                 <b:DropDownMenu>
                                     <b:AnchorListItem targetHistoryToken="{nameTokens.getAnagProdotti}">Prodotti</b:AnchorListItem>

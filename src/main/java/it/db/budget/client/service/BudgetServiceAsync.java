@@ -1,5 +1,6 @@
 package it.db.budget.client.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -13,4 +14,5 @@ public interface BudgetServiceAsync {
 	void insertProdottoSpesa(String aProdotto,AsyncCallback<Void> callback);
 	void getListaSupermercati(AsyncCallback<ArrayList<SupermercatiEntity>> callback);
 	void insertSupermercati(String aSupermercato,AsyncCallback<Void> callback);
+	void salvaNuovoScontrino(String aDataScontrino, BigDecimal aIdSupermercato, AsyncCallback<BigDecimal> callback);
 }

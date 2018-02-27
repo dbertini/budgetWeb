@@ -1,11 +1,13 @@
 package it.db.budget.server.retrofit;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.db.budget.server.retrofit.interfaces.BudgetRetrofitInterface;
 import it.db.budget.server.utils.ApplicationConstants;
 import it.db.budget.shared.bean.CommonMessageResponse;
+import it.db.budget.shared.bean.CommonNumericResponse;
 import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.SupermercatiEntity;
 import retrofit2.Call;
@@ -75,4 +77,15 @@ public class BudgetRetrofitService {
 			throw new Exception(response.errorBody().toString());
 		}
 	}
+	
+	public BigDecimal insertNuovoScontrino(Long aDataSpesa, BigDecimal aIdSupermercato) throws Exception {
+		Call<CommonNumericResponse> call = service.insertNuovoScontrino(aDataSpesa, aIdSupermercato);
+		Response<CommonNumericResponse> response = call.execute();
+		if(response.errorBody()!=null) {
+			throw new Exception(response.errorBody().toString());
+		} else {
+			return response.body().getResult();
+		}
+	}
+
 }

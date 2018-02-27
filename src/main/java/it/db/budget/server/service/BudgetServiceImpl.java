@@ -1,5 +1,7 @@
 package it.db.budget.server.service;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -55,6 +57,14 @@ public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetSer
 	public void insertSupermercati(String aSupermercato) throws Exception {
 		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
 		budegetservice.insertSupermercati(aSupermercato);
+	}
+
+	@Override
+	public BigDecimal salvaNuovoScontrino(String aDataScontrino, BigDecimal aIdSupermercato) throws Exception {
+		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+		long dataScontrino = fmt.parse(aDataScontrino).getTime();
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		return budegetservice.insertNuovoScontrino(dataScontrino, aIdSupermercato);
 	}
 
 }
