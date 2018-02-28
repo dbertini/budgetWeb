@@ -1,4 +1,4 @@
-package it.db.budget.client.application.scontrini;
+package it.db.budget.client.application.spese;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
@@ -14,22 +14,21 @@ import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import it.db.budget.client.application.ApplicationPresenter;
 import it.db.budget.client.place.NameTokens;
 
-public class ScontriniPresenter extends Presenter<ScontriniPresenter.MyView, ScontriniPresenter.MyProxy> implements ScontriniUiHandlers {
+public class RicercaSpesePresenter extends Presenter<RicercaSpesePresenter.MyView, RicercaSpesePresenter.MyProxy> implements RicercaSpeseUiHandlers {
 
 	PlaceManager placeManager;
 	
-	interface MyView extends View, HasUiHandlers<ScontriniPresenter> {
+	interface MyView extends View, HasUiHandlers<RicercaSpesePresenter> {
 		//void setDataSourceName(String aReportName);
-		void cleanData();
 	}
 	
 	@ProxyStandard
-	@NameToken(NameTokens.NUOVO_SCONTINO)
-	interface MyProxy extends ProxyPlace<ScontriniPresenter> {
+	@NameToken(NameTokens.RICERCA_SPESE)
+	interface MyProxy extends ProxyPlace<RicercaSpesePresenter> {
 	}
 	
 	@Inject
-	ScontriniPresenter(EventBus eventBus, MyView view, MyProxy proxy, PlaceManager aPlaceManager) {
+	RicercaSpesePresenter(EventBus eventBus, MyView view, MyProxy proxy, PlaceManager aPlaceManager) {
 		super(eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN);
 		getView().setUiHandlers(this);
 		this.placeManager = aPlaceManager;
@@ -50,12 +49,11 @@ public class ScontriniPresenter extends Presenter<ScontriniPresenter.MyView, Sco
 	@Override
 	protected void onReveal() {
 		super.onReveal();
-		getView().cleanData();
 	}
 
-	@Override
-	public void sendToRicercaSpese() {
-		PlaceRequest placeRequest = new PlaceRequest.Builder().nameToken(NameTokens.RICERCA_SPESE).build();
-		placeManager.revealPlace(placeRequest);
-	}
+//	@Override
+//	public void sendToListaDataSource() {
+//		PlaceRequest placeRequest = new PlaceRequest.Builder().nameToken(NameTokens.LISTA_DATASOURCES).build();
+//		placeManager.revealPlace(placeRequest);
+//	}
 }

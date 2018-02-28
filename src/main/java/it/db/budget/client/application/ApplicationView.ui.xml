@@ -29,6 +29,7 @@
                             <b:ListDropDown>
                                 <b:AnchorButton dataToggle="DROPDOWN">Spese</b:AnchorButton>
                                 <b:DropDownMenu>
+                                    <b:AnchorListItem targetHistoryToken="{nameTokens.getRicercaSpese}">Ricerca Spese</b:AnchorListItem>
                                     <b:AnchorListItem targetHistoryToken="{nameTokens.getNuovoScontrino}">Nuovo Scontrino</b:AnchorListItem>
                                 </b:DropDownMenu>
                             </b:ListDropDown>

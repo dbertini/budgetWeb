@@ -2,10 +2,12 @@ package it.db.budget.client.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import it.db.budget.shared.bean.ProdottiEntity;
+import it.db.budget.shared.bean.ProdottiScontrinoResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
 
 public interface BudgetServiceAsync {
@@ -15,4 +17,9 @@ public interface BudgetServiceAsync {
 	void getListaSupermercati(AsyncCallback<ArrayList<SupermercatiEntity>> callback);
 	void insertSupermercati(String aSupermercato,AsyncCallback<Void> callback);
 	void salvaNuovoScontrino(String aDataScontrino, BigDecimal aIdSupermercato, AsyncCallback<BigDecimal> callback);
+	void addProdottoScontrino(BigDecimal aIdScontrino, BigDecimal aIdProdotto, BigDecimal aQuantita,
+			 BigDecimal aPrezzoUnitario, BigDecimal aPercentualeSconto, BigDecimal aPrezzoDefinitivo,AsyncCallback<Void> callback);
+	void getListaProdottiScontrino(BigDecimal aIdScontrino, AsyncCallback<List<ProdottiScontrinoResponse>> callback);
+	void editScontrino(BigDecimal aIdScontrino, String aDataScontrino, BigDecimal aIdSupermercato, BigDecimal aTotaleSpeso, AsyncCallback<Void> callback);
+	void chiudiScontrino(BigDecimal aIdScontrino,  AsyncCallback<Void> callback); 
 }

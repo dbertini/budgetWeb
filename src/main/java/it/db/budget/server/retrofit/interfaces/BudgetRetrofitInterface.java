@@ -5,6 +5,7 @@ import java.util.List;
 
 import it.db.budget.shared.bean.CommonMessageResponse;
 import it.db.budget.shared.bean.CommonNumericResponse;
+import it.db.budget.shared.bean.ListaProdottiScontrinoResponse;
 import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.SupermercatiEntity;
 import retrofit2.Call;
@@ -26,14 +27,24 @@ public interface BudgetRetrofitInterface {
 	Call<CommonMessageResponse> insertSupermercati(@Query("nome") String nome);
 
 	@POST("spese/scontrini/insert")
-	Call<CommonNumericResponse> insertNuovoScontrino(@Query("dataspesa") Long dataspesa, @Query("idsupermercato") BigDecimal idsupermercato);
-	
+	Call<CommonNumericResponse> insertNuovoScontrino(@Query("dataspesa") Long dataspesa,
+			@Query("idsupermercato") BigDecimal idsupermercato);
+
 	@POST("spese/scontrini/addprodotto")
 	Call<CommonMessageResponse> addProdottoScontrino(@Query("idscontrino") BigDecimal idscontrino,
-			  @Query("idprodotto") BigDecimal idprodotto,
-			  @Query("quantita") BigDecimal quantita,
-			  @Query("prezzounitario") BigDecimal prezzounitario,
-			  @Query("percentualesconto") BigDecimal percentualesconto,
-			  @Query("prezzodefinitivo") BigDecimal prezzodefinitivo);
+			@Query("idprodotto") BigDecimal idprodotto, @Query("quantita") BigDecimal quantita,
+			@Query("prezzounitario") BigDecimal prezzounitario,
+			@Query("percentualesconto") BigDecimal percentualesconto,
+			@Query("prezzodefinitivo") BigDecimal prezzodefinitivo);
 
+	@GET("spese/scontrini/listaprodotti")
+	Call<ListaProdottiScontrinoResponse> getListaProdotti(@Query("idscontrino") BigDecimal idscontrino);
+
+	@POST("spese/scontrini/edit")
+	Call<CommonMessageResponse> editScontrino(@Query("idscontrino") BigDecimal idscontrino,
+			@Query("dataspesa") Long dataspesa, @Query("idsupermercato") BigDecimal idsupermercato,
+			@Query("totalespeso") BigDecimal totalespeso);
+	
+	@POST("spese/scontrini/chiudiscontrino")
+	Call<CommonMessageResponse> chiudiScontrino(@Query("idscontrino") BigDecimal idscontrino);
 }
