@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.ProdottiScontrinoResponse;
+import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
 
 public interface BudgetServiceAsync {
@@ -21,5 +22,6 @@ public interface BudgetServiceAsync {
 			 BigDecimal aPrezzoUnitario, BigDecimal aPercentualeSconto, BigDecimal aPrezzoDefinitivo,AsyncCallback<Void> callback);
 	void getListaProdottiScontrino(BigDecimal aIdScontrino, AsyncCallback<List<ProdottiScontrinoResponse>> callback);
 	void editScontrino(BigDecimal aIdScontrino, String aDataScontrino, BigDecimal aIdSupermercato, BigDecimal aTotaleSpeso, AsyncCallback<Void> callback);
-	void chiudiScontrino(BigDecimal aIdScontrino,  AsyncCallback<Void> callback); 
+	void chiudiScontrino(BigDecimal aIdScontrino, AsyncCallback<Void> callback); 
+	void getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa, AsyncCallback<List<SpeseResponse>> callback);
 }

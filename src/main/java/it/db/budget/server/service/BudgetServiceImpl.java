@@ -11,6 +11,7 @@ import it.db.budget.client.service.BudgetService;
 import it.db.budget.server.retrofit.BudgetRetrofitService;
 import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.ProdottiScontrinoResponse;
+import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
 
 public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetService {
@@ -95,5 +96,11 @@ public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetSer
 		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
 		budegetservice.chiudiScontrino(aIdScontrino);
 	}
-	
+
+	@Override
+	public List<SpeseResponse> getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		return budegetservice.getListaSpese(aDaData, aAData, aTipoSpesa);
+	}
+
 }

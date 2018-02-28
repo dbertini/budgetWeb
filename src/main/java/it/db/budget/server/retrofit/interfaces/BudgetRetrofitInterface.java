@@ -7,6 +7,7 @@ import it.db.budget.shared.bean.CommonMessageResponse;
 import it.db.budget.shared.bean.CommonNumericResponse;
 import it.db.budget.shared.bean.ListaProdottiScontrinoResponse;
 import it.db.budget.shared.bean.ProdottiEntity;
+import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -47,4 +48,8 @@ public interface BudgetRetrofitInterface {
 	
 	@POST("spese/scontrini/chiudiscontrino")
 	Call<CommonMessageResponse> chiudiScontrino(@Query("idscontrino") BigDecimal idscontrino);
+	
+	@GET("/spese/spesa/listaspese")
+	Call<List<SpeseResponse>> getListaSpese(@Query("dadata") Long dadata, @Query("adata") Long adata, @Query("tipospesa") BigDecimal tipospesa);
+
 }

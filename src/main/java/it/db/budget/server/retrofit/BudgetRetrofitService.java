@@ -10,6 +10,7 @@ import it.db.budget.shared.bean.CommonMessageResponse;
 import it.db.budget.shared.bean.CommonNumericResponse;
 import it.db.budget.shared.bean.ListaProdottiScontrinoResponse;
 import it.db.budget.shared.bean.ProdottiEntity;
+import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -121,4 +122,13 @@ public class BudgetRetrofitService {
 		}
 	}
 	
+	public List<SpeseResponse> getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa) throws Exception {
+		Call<List<SpeseResponse>> call = service.getListaSpese(aDaData, aAData, aTipoSpesa);
+		Response<List<SpeseResponse>> response = call.execute();
+		if (response.errorBody() != null) {
+			throw new Exception(response.errorBody().toString());
+		} else {
+			return response.body();
+		}
+	}
 }

@@ -1,6 +1,6 @@
 package it.db.budget.client.application.spese;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.gwtbootstrap3.client.ui.Button;
 import org.gwtbootstrap3.client.ui.TextBox;
@@ -20,7 +20,7 @@ import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import it.db.budget.client.service.BudgetService;
 import it.db.budget.client.service.BudgetServiceAsync;
-import it.db.budget.shared.bean.SupermercatiEntity;
+import it.db.budget.shared.bean.SpeseResponse;
 
 public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> implements RicercaSpesePresenter.MyView {
 
@@ -31,61 +31,68 @@ public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> 
 	TextBox dataSpesa;
 	
 	@UiField(provided = true)
-    CellTable<SupermercatiEntity> cellTable = new CellTable<SupermercatiEntity>(10000);
+    CellTable<SpeseResponse> cellTable = new CellTable<SpeseResponse>(10000);
 
 	interface Binder extends UiBinder<Widget, RicercaSpeseView> {
 	}
 	
-	private ListDataProvider<SupermercatiEntity> cellTableProvider = new ListDataProvider<SupermercatiEntity>();
+	private ListDataProvider<SpeseResponse> cellTableProvider = new ListDataProvider<SpeseResponse>();
 	
 	@Inject
 	RicercaSpeseView(Binder uiBinder) {
 		initWidget(uiBinder.createAndBindUi(this));
 
-		final TextColumn<SupermercatiEntity> col1 = new TextColumn<SupermercatiEntity>() {
+		final TextColumn<SpeseResponse> col1 = new TextColumn<SpeseResponse>() {
 
             @Override
-            public String getValue(final SupermercatiEntity object) {
-                return String.valueOf(object.getIdSupermercato().toString());
+            public String getValue(final SpeseResponse object) {
+                return String.valueOf(object.getDataSpesa());
             }
         };
-        cellTable.addColumn(col1, "Prodotto");
+        cellTable.addColumn(col1, "Data Spesa");
 		
-        final TextColumn<SupermercatiEntity> col2 = new TextColumn<SupermercatiEntity>() {
+        final TextColumn<SpeseResponse> col2 = new TextColumn<SpeseResponse>() {
 
             @Override
-            public String getValue(final SupermercatiEntity object) {
-                return String.valueOf(object.getNome());
+            public String getValue(final SpeseResponse object) {
+                return String.valueOf(object.getTipoSpesaDesc());
             }
         };
-        cellTable.addColumn(col2, "Prodotto");
+        cellTable.addColumn(col2, "Tipo Spesa");
+        
+        final TextColumn<SpeseResponse> col3 = new TextColumn<SpeseResponse>() {
+
+            @Override
+            public String getValue(final SpeseResponse object) {
+                return String.valueOf(object.getTotaleSpeso());
+            }
+        };
+        cellTable.addColumn(col3, "Totale Speso");
+        
         cellTable.setStriped(true);
         cellTableProvider.addDataDisplay(cellTable);
-
-        buildData() ;
-        
-		GWT.log("AnagProdottiView load ");
+        buildData();
 	}
 
 	
 	@UiHandler("cercaButton")
-	public void onSalvaButtonClick(final ClickEvent event) {
-		GWT.log("Cliccato bottone Salva!");
-
+	public void onCercaButtonClick(final ClickEvent event) {
+		GWT.log("Cliccato bottone Cerca!");
+		buildData();
 		BudgetServiceAsync service = GWT.create(BudgetService.class);
-		service.insertSupermercati(dataSpesa.getText(), new AsyncCallback<Void>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				GWT.log("Errore durante il salvataggio del prodotto spesa.", caught);
-			}
-
-			@Override
-			public void onSuccess(Void result) {
-				cleanData();
-				buildData();
-			}
-		});
+//		service.insertSupermercati(dataSpesa.getText(), new AsyncCallback<Void>() {
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				GWT.log("Errore durante il salvataggio del prodotto spesa.", caught);
+//			}
+//
+//			@Override
+//			public void onSuccess(Void result) {
+//				cleanData();
+//				buildData();
+//			}
+//		});
 		
 	}
 
@@ -99,17 +106,18 @@ public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> 
 		BudgetServiceAsync service = GWT.create(BudgetService.class);
 		
 		GWT.log("Dentro buildData di AnagProdottiView!");
-        service.getListaSupermercati(new AsyncCallback<ArrayList<SupermercatiEntity>>() {
-			
-			@Override
-			public void onSuccess(ArrayList<SupermercatiEntity> result) {
-				cellTableProvider.getList().addAll(result);
-			}
-			
+        service.getListaSpese(null, null, null, new AsyncCallback<List<SpeseResponse>>() {
+
 			@Override
 			public void onFailure(Throwable caught) {
-				GWT.log("Errore durante il caricamento dei prodotti spesa.", caught);
+				GWT.log("Errore durante il caricamento della lista delle spese.", caught);
+			}
+
+			@Override
+			public void onSuccess(List<SpeseResponse> result) {
+				cellTableProvider.getList().addAll(result);
 			}
 		});
+
 	}
 }
