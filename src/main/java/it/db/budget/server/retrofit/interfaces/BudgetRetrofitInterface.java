@@ -27,4 +27,13 @@ public interface BudgetRetrofitInterface {
 
 	@POST("spese/scontrini/insert")
 	Call<CommonNumericResponse> insertNuovoScontrino(@Query("dataspesa") Long dataspesa, @Query("idsupermercato") BigDecimal idsupermercato);
+	
+	@POST("spese/scontrini/addprodotto")
+	Call<CommonMessageResponse> addProdottoScontrino(@Query("idscontrino") BigDecimal idscontrino,
+			  @Query("idprodotto") BigDecimal idprodotto,
+			  @Query("quantita") BigDecimal quantita,
+			  @Query("prezzounitario") BigDecimal prezzounitario,
+			  @Query("percentualesconto") BigDecimal percentualesconto,
+			  @Query("prezzodefinitivo") BigDecimal prezzodefinitivo);
+
 }
