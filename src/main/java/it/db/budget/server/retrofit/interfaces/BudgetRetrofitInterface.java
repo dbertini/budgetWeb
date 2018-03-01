@@ -9,6 +9,7 @@ import it.db.budget.shared.bean.ListaProdottiScontrinoResponse;
 import it.db.budget.shared.bean.ListaSpeseResponse;
 import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.SupermercatiEntity;
+import it.db.budget.shared.bean.TipiSpeseEntity;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -54,5 +55,11 @@ public interface BudgetRetrofitInterface {
 
 	@POST("spese/scontrini/removeprodotto")
 	Call<CommonMessageResponse> removeProdottoScontrino(@Query("idscontrino") BigDecimal idscontrino, @Query("idprodotto") BigDecimal idprodotto);
+
+	@GET("anag/tipspese/list")
+	Call<List<TipiSpeseEntity>> getListaTipiSpese();
+
+	@POST("anag/tipspese/insert")
+	Call<CommonMessageResponse> insertTipoSpese(@Query("nome") String nome);
 
 }

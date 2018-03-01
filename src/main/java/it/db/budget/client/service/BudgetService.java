@@ -11,6 +11,7 @@ import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.ProdottiScontrinoResponse;
 import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
+import it.db.budget.shared.bean.TipiSpeseEntity;
 
 @RemoteServiceRelativePath("wrservice")
 public interface BudgetService extends RemoteService {
@@ -34,4 +35,7 @@ public interface BudgetService extends RemoteService {
 	void chiudiScontrino(BigDecimal aIdScontrino) throws Exception;
 	List<SpeseResponse> getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa) throws Exception;
 	void removeProdottoScontrino(BigDecimal aIdScontrino, BigDecimal aIdProdotto) throws Exception;
+
+	ArrayList<TipiSpeseEntity> getListaTipiSpese();
+	void insertTipoSpese(String aTipoSpese) throws Exception;
 }

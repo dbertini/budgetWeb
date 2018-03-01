@@ -13,6 +13,7 @@ import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.ProdottiScontrinoResponse;
 import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
+import it.db.budget.shared.bean.TipiSpeseEntity;
 
 public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetService {
 
@@ -110,4 +111,20 @@ public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetSer
 		budegetservice.removeProdottoScontrino(aIdScontrino, aIdProdotto);
 	}
 
+	@Override
+	public ArrayList<TipiSpeseEntity> getListaTipiSpese() {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		try {
+			return budegetservice.getListaTipiSpese();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<>();
+	}
+
+	@Override
+	public void insertTipoSpese(String aTipoSpese) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		budegetservice.insertTipoSpese(aTipoSpese);
+	}
 }

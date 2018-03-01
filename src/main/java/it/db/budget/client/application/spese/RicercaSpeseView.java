@@ -82,22 +82,8 @@ public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> 
 	@UiHandler("cercaButton")
 	public void onCercaButtonClick(final ClickEvent event) {
 		GWT.log("Cliccato bottone Cerca!");
+		cleanData();
 		buildData();
-		BudgetServiceAsync service = GWT.create(BudgetService.class);
-//		service.insertSupermercati(dataSpesa.getText(), new AsyncCallback<Void>() {
-//
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				GWT.log("Errore durante il salvataggio del prodotto spesa.", caught);
-//			}
-//
-//			@Override
-//			public void onSuccess(Void result) {
-//				cleanData();
-//				buildData();
-//			}
-//		});
-		
 	}
 
 	private void cleanData() {
