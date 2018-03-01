@@ -10,6 +10,7 @@ import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.ProdottiScontrinoResponse;
 import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
+import it.db.budget.shared.bean.TipiSpeseEntity;
 
 public interface BudgetServiceAsync {
 	void getMessaggio(AsyncCallback<String> callback);
@@ -25,4 +26,6 @@ public interface BudgetServiceAsync {
 	void chiudiScontrino(BigDecimal aIdScontrino, AsyncCallback<Void> callback); 
 	void getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa, AsyncCallback<List<SpeseResponse>> callback);
 	void removeProdottoScontrino(BigDecimal aIdScontrino, BigDecimal aIdProdotto, AsyncCallback<Void> callback);
+	void getListaTipiSpese(AsyncCallback<ArrayList<TipiSpeseEntity>> callback);
+	void insertTipoSpese(String aTipoSpese,AsyncCallback<Void> callback);
 }

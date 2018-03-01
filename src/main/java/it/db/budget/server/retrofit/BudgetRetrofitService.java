@@ -13,6 +13,7 @@ import it.db.budget.shared.bean.ListaSpeseResponse;
 import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
+import it.db.budget.shared.bean.TipiSpeseEntity;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -145,6 +146,27 @@ public class BudgetRetrofitService {
 	
 	public void removeProdottoScontrino(BigDecimal idscontrino, BigDecimal idprodotto) throws Exception {
 		Call<CommonMessageResponse> call = service.removeProdottoScontrino(idscontrino, idprodotto);
+		Response<CommonMessageResponse> response = call.execute();
+		if (response.errorBody() != null) {
+			throw new Exception(response.errorBody().toString());
+		}
+	}
+	
+	public ArrayList<TipiSpeseEntity> getListaTipiSpese() throws Exception {
+		Call<List<TipiSpeseEntity>> call = service.getListaTipiSpese();
+
+		Response<List<TipiSpeseEntity>> response = call.execute();
+
+		if (response.errorBody() != null) {
+			return null;
+		} else {
+			List<TipiSpeseEntity> confs = response.body();
+			return (ArrayList<TipiSpeseEntity>) confs;
+		}
+	}
+
+	public void insertTipoSpese(String aTipoSpesa) throws Exception {
+		Call<CommonMessageResponse> call = service.insertTipoSpese(aTipoSpesa);
 		Response<CommonMessageResponse> response = call.execute();
 		if (response.errorBody() != null) {
 			throw new Exception(response.errorBody().toString());
