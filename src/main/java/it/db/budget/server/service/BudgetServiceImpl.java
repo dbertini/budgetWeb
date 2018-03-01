@@ -100,7 +100,14 @@ public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetSer
 	@Override
 	public List<SpeseResponse> getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa) throws Exception {
 		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		System.out.println("Sono dentro la getListaSpese");
 		return budegetservice.getListaSpese(aDaData, aAData, aTipoSpesa);
+	}
+	
+	@Override
+	public void removeProdottoScontrino(BigDecimal aIdScontrino, BigDecimal aIdProdotto) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		budegetservice.removeProdottoScontrino(aIdScontrino, aIdProdotto);
 	}
 
 }

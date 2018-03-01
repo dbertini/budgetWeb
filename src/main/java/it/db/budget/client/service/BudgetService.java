@@ -33,4 +33,5 @@ public interface BudgetService extends RemoteService {
 
 	void chiudiScontrino(BigDecimal aIdScontrino) throws Exception;
 	List<SpeseResponse> getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa) throws Exception;
+	void removeProdottoScontrino(BigDecimal aIdScontrino, BigDecimal aIdProdotto) throws Exception;
 }

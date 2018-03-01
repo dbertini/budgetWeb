@@ -194,7 +194,30 @@ public class ScontriniView extends ViewWithUiHandlers<ScontriniPresenter> implem
         col4.setFieldUpdater(new FieldUpdater<ProdottiScontrinoResponse, String>() {
             @Override
             public void update(int index, ProdottiScontrinoResponse object, String value) {
-                Window.alert("Cliccata la riga: " + index + ". Oggetto: " + object.getProdotto());
+            	
+            	final BigDecimal prezzoDaTogliere = object.getPrezzoDefinitivo().multiply(new BigDecimal(-1));
+            	final BigDecimal idScontrino = object.getIdScontrino();
+            	final BigDecimal idProdotto = object.getIdProdottoSpesa();
+            	
+            	//FIXME: mettere la cancellazione della riga
+            	final BudgetServiceAsync service = GWT.create(BudgetService.class);
+            	service.removeProdottoScontrino(idScontrino, idProdotto, new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Errore durante la rimozione del prodotto. Errore: " + caught.getMessage());
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						//aggiorna il totale speso
+						aggiornaTotaleSpeso(prezzoDaTogliere);
+						cleanDataProducts();
+						cleanDataScontrino();
+						aggiornaListaScontrino();
+						
+					}
+				});
             }
         });
         

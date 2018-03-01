@@ -1,5 +1,6 @@
 package it.db.budget.client.application.spese;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.gwtbootstrap3.client.ui.Button;
@@ -8,6 +9,7 @@ import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -46,7 +48,9 @@ public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> 
 
             @Override
             public String getValue(final SpeseResponse object) {
-                return String.valueOf(object.getDataSpesa());
+            	DateTimeFormat fmt = DateTimeFormat.getFormat("dd/MM/yyyy");
+            	return fmt.format(object.getDataSpesa());
+                //return String.valueOf();
             }
         };
         cellTable.addColumn(col1, "Data Spesa");
@@ -105,8 +109,8 @@ public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> 
 	private void buildData() {
 		BudgetServiceAsync service = GWT.create(BudgetService.class);
 		
-		GWT.log("Dentro buildData di AnagProdottiView!");
-        service.getListaSpese(null, null, null, new AsyncCallback<List<SpeseResponse>>() {
+		GWT.log("Dentro buildData di RicercaSpeseView!");
+        service.getListaSpese(new Long(0), new Long(0), BigDecimal.ZERO, new AsyncCallback<List<SpeseResponse>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {

@@ -9,6 +9,7 @@ import it.db.budget.server.utils.ApplicationConstants;
 import it.db.budget.shared.bean.CommonMessageResponse;
 import it.db.budget.shared.bean.CommonNumericResponse;
 import it.db.budget.shared.bean.ListaProdottiScontrinoResponse;
+import it.db.budget.shared.bean.ListaSpeseResponse;
 import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
@@ -123,12 +124,30 @@ public class BudgetRetrofitService {
 	}
 	
 	public List<SpeseResponse> getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa) throws Exception {
-		Call<List<SpeseResponse>> call = service.getListaSpese(aDaData, aAData, aTipoSpesa);
-		Response<List<SpeseResponse>> response = call.execute();
+		
+		System.err.println("dadata: " + aDaData);
+		System.err.println("aAData: " + aAData);
+		System.err.println("aTipoSpesa: " + aTipoSpesa);
+		
+		Call<ListaSpeseResponse> call = service.getListaSpese(aDaData, aAData, aTipoSpesa);
+		System.err.println("Dopo la creazione della call");
+		Response<ListaSpeseResponse> response = call.execute();
+		System.err.println("Dopo la call");
+		System.err.println("Response: " + response.toString());
 		if (response.errorBody() != null) {
+			System.err.println(response.errorBody().toString());
 			throw new Exception(response.errorBody().toString());
 		} else {
-			return response.body();
+			return response.body().getSpese();
+		}
+	}
+	
+	
+	public void removeProdottoScontrino(BigDecimal idscontrino, BigDecimal idprodotto) throws Exception {
+		Call<CommonMessageResponse> call = service.removeProdottoScontrino(idscontrino, idprodotto);
+		Response<CommonMessageResponse> response = call.execute();
+		if (response.errorBody() != null) {
+			throw new Exception(response.errorBody().toString());
 		}
 	}
 }

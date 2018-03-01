@@ -24,4 +24,5 @@ public interface BudgetServiceAsync {
 	void editScontrino(BigDecimal aIdScontrino, String aDataScontrino, BigDecimal aIdSupermercato, BigDecimal aTotaleSpeso, AsyncCallback<Void> callback);
 	void chiudiScontrino(BigDecimal aIdScontrino, AsyncCallback<Void> callback); 
 	void getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa, AsyncCallback<List<SpeseResponse>> callback);
+	void removeProdottoScontrino(BigDecimal aIdScontrino, BigDecimal aIdProdotto, AsyncCallback<Void> callback);
 }
