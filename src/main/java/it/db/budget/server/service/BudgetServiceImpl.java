@@ -1,12 +1,17 @@
 package it.db.budget.server.service;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import it.db.budget.client.service.BudgetService;
 import it.db.budget.server.retrofit.BudgetRetrofitService;
 import it.db.budget.shared.bean.ProdottiEntity;
+import it.db.budget.shared.bean.ProdottiScontrinoResponse;
+import it.db.budget.shared.bean.SpeseResponse;
 import it.db.budget.shared.bean.SupermercatiEntity;
 
 public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetService {
@@ -15,7 +20,7 @@ public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetSer
 	 * 
 	 */
 	private static final long serialVersionUID = -2568327084740898654L;
-	
+
 	@Override
 	public String getMessaggio() {
 		// TODO Auto-generated method stub
@@ -33,8 +38,6 @@ public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetSer
 		return new ArrayList<>();
 	}
 
-	
-	
 	@Override
 	public void insertProdottoSpesa(String aProdotto) throws Exception {
 		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
@@ -51,10 +54,60 @@ public class BudgetServiceImpl extends RemoteServiceServlet implements BudgetSer
 		}
 		return new ArrayList<>();
 	}
+
 	@Override
 	public void insertSupermercati(String aSupermercato) throws Exception {
 		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
 		budegetservice.insertSupermercati(aSupermercato);
+	}
+
+	@Override
+	public BigDecimal salvaNuovoScontrino(String aDataScontrino, BigDecimal aIdSupermercato) throws Exception {
+		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+		long dataScontrino = fmt.parse(aDataScontrino).getTime();
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		return budegetservice.insertNuovoScontrino(dataScontrino, aIdSupermercato);
+	}
+
+	@Override
+	public void addProdottoScontrino(BigDecimal aIdScontrino, BigDecimal aIdProdotto, BigDecimal aQuantita,
+			BigDecimal aPrezzoUnitario, BigDecimal aPercentualeSconto, BigDecimal aPrezzoDefinitivo) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		budegetservice.addProdottoScontrino(aIdScontrino, aIdProdotto, aQuantita, aPrezzoUnitario, aPercentualeSconto,
+				aPrezzoDefinitivo);
+	}
+	
+	@Override
+	public List<ProdottiScontrinoResponse> getListaProdottiScontrino(BigDecimal aIdScontrino) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		return budegetservice.getListaProdottiScontrino(aIdScontrino).getProdotti();
+	}
+	
+	@Override
+	public void editScontrino(BigDecimal aIdScontrino, String aDataScontrino, BigDecimal aIdSupermercato, BigDecimal aTotaleSpeso) throws Exception {
+		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+		long dataScontrino = fmt.parse(aDataScontrino).getTime();
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		budegetservice.editScontrino(aIdScontrino, dataScontrino, aIdSupermercato, aTotaleSpeso);
+	}
+
+	@Override
+	public void chiudiScontrino(BigDecimal aIdScontrino) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		budegetservice.chiudiScontrino(aIdScontrino);
+	}
+
+	@Override
+	public List<SpeseResponse> getListaSpese(Long aDaData, Long aAData, BigDecimal aTipoSpesa) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		System.out.println("Sono dentro la getListaSpese");
+		return budegetservice.getListaSpese(aDaData, aAData, aTipoSpesa);
+	}
+	
+	@Override
+	public void removeProdottoScontrino(BigDecimal aIdScontrino, BigDecimal aIdProdotto) throws Exception {
+		BudgetRetrofitService budegetservice = new BudgetRetrofitService();
+		budegetservice.removeProdottoScontrino(aIdScontrino, aIdProdotto);
 	}
 
 }
