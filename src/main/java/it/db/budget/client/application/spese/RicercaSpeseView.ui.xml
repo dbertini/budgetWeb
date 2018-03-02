@@ -11,9 +11,19 @@
 			<b:Form>
 				<b:FieldSet>
 					<b:FormGroup>
-      					<b:FormLabel for="formDataSpesa">Data spesa</b:FormLabel>
-      					<b:TextBox placeholder="GG/MM/AAAA" b:id="formDataSpesa" ui:field="dataSpesa"/>
+      					<b:FormLabel for="formDataSpesa">Da Data spesa</b:FormLabel>
+      					<b:TextBox placeholder="GG/MM/AAAA" b:id="formDataSpesa" ui:field="daDataSpesa"/>
     				</b:FormGroup>
+    				<b:FormGroup>
+      					<b:FormLabel for="formADataSpesa">A Data spesa</b:FormLabel>
+      					<b:TextBox placeholder="GG/MM/AAAA" b:id="formADataSpesa" ui:field="aDataSpesa"/>
+    				</b:FormGroup>
+    				<b:FormGroup>
+			      		<b:FormLabel for="formTipiSpesa">Tipi Spesa</b:FormLabel>
+			      		<b:ListBox b:id="formTipiSpesa" ui:field="tipiSpesaList"></b:ListBox>
+			    	</b:FormGroup>
+    				
+    				
     				<b:Button type="PRIMARY" ui:field="cercaButton">Cerca</b:Button>
     				<b.gwt:CellTable bordered="true" condensed="true" striped="true" hover="true" height="20px" width="100%" ui:field="cellTable"/>
 				</b:FieldSet>
