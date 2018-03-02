@@ -1,9 +1,12 @@
 package it.db.budget.client.application.spese;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.gwtbootstrap3.client.ui.Button;
+import org.gwtbootstrap3.client.ui.ListBox;
 import org.gwtbootstrap3.client.ui.TextBox;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
 
@@ -22,7 +25,9 @@ import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 import it.db.budget.client.service.BudgetService;
 import it.db.budget.client.service.BudgetServiceAsync;
+import it.db.budget.shared.bean.ProdottiEntity;
 import it.db.budget.shared.bean.SpeseResponse;
+import it.db.budget.shared.bean.TipiSpeseEntity;
 
 public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> implements RicercaSpesePresenter.MyView {
 
@@ -30,11 +35,19 @@ public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> 
 	@UiField
 	Button cercaButton;
 	@UiField
-	TextBox dataSpesa;
+	TextBox daDataSpesa;
+	
+	@UiField
+	TextBox aDataSpesa;
+	
+	@UiField
+	ListBox tipiSpesaList;
 	
 	@UiField(provided = true)
     CellTable<SpeseResponse> cellTable = new CellTable<SpeseResponse>(10000);
 
+	HashMap<Integer, TipiSpeseEntity> tipiSpesaFound = new HashMap<Integer, TipiSpeseEntity>();
+	
 	interface Binder extends UiBinder<Widget, RicercaSpeseView> {
 	}
 	
@@ -75,6 +88,9 @@ public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> 
         
         cellTable.setStriped(true);
         cellTableProvider.addDataDisplay(cellTable);
+        
+        buildTendinaTipiSpese();
+        
         buildData();
 	}
 
@@ -95,8 +111,32 @@ public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> 
 	private void buildData() {
 		BudgetServiceAsync service = GWT.create(BudgetService.class);
 		
-		GWT.log("Dentro buildData di RicercaSpeseView!");
-        service.getListaSpese(new Long(0), new Long(0), BigDecimal.ZERO, new AsyncCallback<List<SpeseResponse>>() {
+		DateTimeFormat fmt = DateTimeFormat.getFormat("dd/MM/yyyy");
+		
+		Long lDaDataSpesa = new Long(0);
+		if(daDataSpesa.getValue() != null) {
+			try {
+				lDaDataSpesa = fmt.parse(daDataSpesa.getValue()).getTime();
+			} catch(Exception a) {
+				lDaDataSpesa = new Long(0);
+			}
+		}
+		
+		Long lADataSpesa = new Long(0);
+		if(aDataSpesa.getValue() != null) {
+			try {
+				lADataSpesa = fmt.parse(aDataSpesa.getValue()).getTime();
+			} catch(Exception a) {
+				lADataSpesa = new Long(0);
+			}
+		}
+		
+		BigDecimal tipoSpesaSelected = BigDecimal.ZERO;
+		if(tipiSpesaList.getSelectedIndex() > 0) {
+			tipoSpesaSelected = tipiSpesaFound.get(tipiSpesaList.getSelectedIndex()).getIdTipoSpesa();
+		}
+
+		service.getListaSpese(lDaDataSpesa, lADataSpesa, tipoSpesaSelected, new AsyncCallback<List<SpeseResponse>>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
@@ -108,6 +148,27 @@ public class RicercaSpeseView extends ViewWithUiHandlers<RicercaSpesePresenter> 
 				cellTableProvider.getList().addAll(result);
 			}
 		});
+	}
+	
+	
+	private void buildTendinaTipiSpese() {
+		BudgetServiceAsync service = GWT.create(BudgetService.class);
+		service.getListaTipiSpese(new AsyncCallback<ArrayList<TipiSpeseEntity>>() {
 
+			@Override
+			public void onFailure(Throwable caught) {
+				GWT.log("Errore durante il caricamento della tendina dei Tipi Spesa");
+			}
+
+			@Override
+			public void onSuccess(ArrayList<TipiSpeseEntity> result) {
+				tipiSpesaList.insertItem("Selezionare un tipo spesa...", 0);
+				
+				for (int i = 0; i < result.size(); i++) {
+					tipiSpesaList.insertItem(result.get(i).getTipoSpesa(), (i+1));
+					tipiSpesaFound.put((i+1), result.get(i));
+				}
+			}
+		});
 	}
 }
