@@ -15,7 +15,7 @@
 		<gwt.version>2.7.0</gwt.version>
 		<gwtp.version>1.5.3</gwtp.version>
 		<gin.version>2.1.2</gin.version>
-		<retrofit.version>2.3.0</retrofit.version>
+		<retrofit.version>2.5.0</retrofit.version>
 		<gwt-bootstrap.version>0.9.4</gwt-bootstrap.version>
 		<gwt.style>OBF</gwt.style>
 		<gwt.bindAddress>0.0.0.0</gwt.bindAddress>
